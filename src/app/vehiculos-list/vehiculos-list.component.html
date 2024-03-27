@@ -1,0 +1,56 @@
+<h4>Listado de Vehiculos</h4>
+
+<div class="row">
+    <div class="col-1">
+        Id
+        <input [(ngModel)]="VehiculosConsulta.Id" class="form-control" placeholder="123" type="number" >
+    </div>
+    <div class="col-2">
+        Patente
+        <input [(ngModel)]="VehiculosConsulta.Patente" class="form-control" placeholder="ABCD12" >
+    </div>
+    <div class="col-2">
+        Creación Desde
+        <input [(ngModel)]="VehiculosConsulta.FecCreacionDesde" class="form-control" type="date" >
+    </div>
+    <div class="col-2">
+        Creación Hasta
+        <input [(ngModel)]="VehiculosConsulta.FecCreacionHasta" class="form-control" type="date" >        
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="col-4" style="margin-top:22px">
+
+        <button class="btn btn-secondary" (click)="VehiculosGet()">Buscar</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-secondary" (click)="Limpiar()">Limpiar</button>
+
+    </div>
+
+</div>
+<span style="font-size:large; font-weight: bold; color: red;">{{msgError}}</span>
+<br><br>
+<table class="table">
+    <thead>
+      <tr>
+        <th><a style="cursor: pointer;" (click)="VehiculosGet('Id')">Id</a></th>
+        <th><a style="cursor: pointer;" (click)="VehiculosGet('NombreTipoVehiculo')">Tipo</a></th>
+        <th><a style="cursor: pointer;" (click)="VehiculosGet('NombreModeloVehiculo')">Modelo</a></th>
+        <th><a style="cursor: pointer;" (click)="VehiculosGet('Patente')">Patente</a></th>
+        <th><a style="cursor: pointer;" (click)="VehiculosGet('FecCreacion')">Creacion</a></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td><a [routerLink]="['/vehiculo', item.Id]">{{item.Id}}</a></td>
+        <td>{{ item.NombreTipoVehiculo }}</td>
+        <td>{{ item.NombreModeloVehiculo }}</td>
+        <td>{{ item.Patente }}</td>
+        <td>{{ item.FecCreacion | date:'dd-MM-yyyy' }}</td>
+        <td><a [routerLink]="['/vehiculo', (item.Id * -1)]">Eliminar</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <a [routerLink]="['/vehiculo', 0]">[Crear]</a>

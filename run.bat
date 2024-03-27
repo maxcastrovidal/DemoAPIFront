@@ -1,0 +1,1 @@
+ng serve -o --ssl true --ssl-cert "C:\ssl\localhost+2.crt" --ssl-key "C:\ssl\localhost+2-key.key"

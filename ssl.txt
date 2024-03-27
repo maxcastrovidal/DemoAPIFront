@@ -1,0 +1,19 @@
+Crear e instalar certificado con mkcert
+
+- Ejecutar powershell como admin.
+- Posicionarse en una carpeta local
+
+- Instalar Chocolatey ejecutando el comando:
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+- Instalar mkcert:
+choco install mkcert
+
+-- Crear certificado para localhost:
+mkcert localhost 127.0.0.1 ::1
+
+-- Instalar certificados:
+mkcert -install
+
+-- Ejecutar app Angular
+ng serve -o --ssl true --ssl-cert "localhost+2.crt" --ssl-key "localhost+2-key.key"

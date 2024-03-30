@@ -56,6 +56,14 @@ export class VehiculosService {
             url += '&Ordenar=' + vehiculosConsulta.Ordenar;
         }
 
+        if(vehiculosConsulta.RegistrosPagina!=null) {
+            url += '&RegistrosPagina=' + vehiculosConsulta.RegistrosPagina;
+        }
+
+        if(vehiculosConsulta.NumeroPagina!=null) {
+            url += '&NumeroPagina=' + vehiculosConsulta.NumeroPagina;
+        }
+
         console.log('[VehiculosGet()]: Invocando ', url);
         const data = await fetch(url);
         return await data.json() ?? [];

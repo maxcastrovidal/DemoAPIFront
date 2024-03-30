@@ -27,5 +27,7 @@ export interface VehiculosConsulta {
     Patente: string | null;
     FecCreacionDesde: Date | null;
     FecCreacionHasta: Date | null;
-    Ordenar: string | null;    
+    Ordenar: string | null;   
+    RegistrosPagina: number | null;
+    NumeroPagina: number | null;
 }

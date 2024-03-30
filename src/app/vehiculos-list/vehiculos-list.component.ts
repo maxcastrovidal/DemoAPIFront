@@ -11,7 +11,8 @@ import { RespuestaProceso } from '../interfaces/respuesta-proceso'
 })
 export class VehiculosListComponent {
 
-  VehiculosConsulta: VehiculosConsulta = {Id:null,
+  VehiculosConsulta: VehiculosConsulta = {
+                                          Id:null,
                                           IdTipoVehiculo: null,
                                           IdModeloVersion: null,
                                           IdColorVehiculo: null,
@@ -20,6 +21,8 @@ export class VehiculosListComponent {
                                           FecCreacionDesde: null,
                                           FecCreacionHasta: null,
                                           Ordenar: null,
+                                          RegistrosPagina: 5,
+                                          NumeroPagina: 1
                                          }
 
   data:any = [];
@@ -88,6 +91,16 @@ export class VehiculosListComponent {
     });
 
     //localStorage.setItem('VehiculoConsulta', JSON.stringify(this.VehiculosConsulta));
+  }
+
+  AvanzarPagina() {
+    this.VehiculosConsulta.NumeroPagina! ++;
+    this.VehiculosGet();
+  }
+
+  RetrocederPagina() {
+    this.VehiculosConsulta.NumeroPagina! --;
+    this.VehiculosGet();
   }
 
   Limpiar():void {

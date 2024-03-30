@@ -18,14 +18,17 @@
         <input [(ngModel)]="VehiculosConsulta.FecCreacionHasta" class="form-control" type="date" >        
     </div>
 
-    <div class="col-1"></div>
+    <div class="col-1">
+        Reg x Pág
+        <input [(ngModel)]="VehiculosConsulta.RegistrosPagina" class="form-control" type="number">
+    </div>
+
+    
 
     <div class="col-4" style="margin-top:22px">
-
         <button class="btn btn-secondary" (click)="VehiculosGet()">Buscar</button>
         &nbsp;&nbsp;&nbsp;
         <button class="btn btn-secondary" (click)="Limpiar()">Limpiar</button>
-
     </div>
 
 </div>
@@ -53,4 +56,16 @@
       </tr>
     </tbody>
   </table>
-  <a [routerLink]="['/vehiculo', 0]">[Crear]</a>
+  <table style="width: 100%;">
+    <tr>
+      <td>
+        <a [routerLink]="['/vehiculo', 0]">[Crear]</a>
+      </td>
+      <td style="text-align: right;">
+        <span *ngIf="VehiculosConsulta.NumeroPagina! > 1"> <a style="cursor: pointer;" (click)="RetrocederPagina()"> &lt;  &nbsp;</a> </span>
+        Página {{ VehiculosConsulta.NumeroPagina }} &nbsp;
+        <span> <a style="cursor: pointer;" (click)="AvanzarPagina()">&gt; &nbsp;</a> </span>
+      </td>      
+    </tr>
+  </table>
+  <br>  

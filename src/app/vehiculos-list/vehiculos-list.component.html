@@ -3,30 +3,29 @@
 <div class="row">
     <div class="col-1">
         Id
-        <input [(ngModel)]="VehiculosConsulta.Id" class="form-control" placeholder="123" type="number" >
+        <input [(ngModel)]="consulta.Id" class="form-control" placeholder="123" type="number" >
     </div>
     <div class="col-2">
         Patente
-        <input [(ngModel)]="VehiculosConsulta.Patente" class="form-control" placeholder="ABCD12" >
+        <input [(ngModel)]="consulta.Patente" class="form-control" placeholder="ABCD12" >
     </div>
     <div class="col-2">
         Creación Desde
-        <input [(ngModel)]="VehiculosConsulta.FecCreacionDesde" class="form-control" type="date" >
+        <input [(ngModel)]="consulta.FecCreacionDesde" class="form-control" type="date" >
     </div>
     <div class="col-2">
         Creación Hasta
-        <input [(ngModel)]="VehiculosConsulta.FecCreacionHasta" class="form-control" type="date" >        
+        <input [(ngModel)]="consulta.FecCreacionHasta" class="form-control" type="date" >        
     </div>
 
     <div class="col-1">
         Reg x Pág
-        <input [(ngModel)]="VehiculosConsulta.RegistrosPagina" class="form-control" type="number">
+        <input [(ngModel)]="consulta.RegistrosPagina" class="form-control" type="number">
     </div>
-
     
 
     <div class="col-4" style="margin-top:22px">
-        <button class="btn btn-secondary" (click)="VehiculosGet()">Buscar</button>
+        <button class="btn btn-secondary" (click)="Consultar()">Buscar</button>
         &nbsp;&nbsp;&nbsp;
         <button class="btn btn-secondary" (click)="Limpiar()">Limpiar</button>
     </div>
@@ -37,16 +36,16 @@
 <table class="table">
     <thead>
       <tr>
-        <th><a style="cursor: pointer;" (click)="VehiculosGet('Id')">Id</a></th>
-        <th><a style="cursor: pointer;" (click)="VehiculosGet('NombreTipoVehiculo')">Tipo</a></th>
-        <th><a style="cursor: pointer;" (click)="VehiculosGet('NombreModeloVehiculo')">Modelo</a></th>
-        <th><a style="cursor: pointer;" (click)="VehiculosGet('Patente')">Patente</a></th>
-        <th><a style="cursor: pointer;" (click)="VehiculosGet('FecCreacion')">Creacion</a></th>
+        <th><a style="cursor: pointer;" (click)="Consultar('Id')">Id</a></th>
+        <th><a style="cursor: pointer;" (click)="Consultar('NombreTipoVehiculo')">Tipo</a></th>
+        <th><a style="cursor: pointer;" (click)="Consultar('NombreModeloVehiculo')">Modelo</a></th>
+        <th><a style="cursor: pointer;" (click)="Consultar('Patente')">Patente</a></th>
+        <th><a style="cursor: pointer;" (click)="Consultar('FecCreacion')">Creacion</a></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data">
+      <tr *ngFor="let item of lista">
         <td><a [routerLink]="['/vehiculo', item.Id]">{{item.Id}}</a></td>
         <td>{{ item.NombreTipoVehiculo }}</td>
         <td>{{ item.NombreModeloVehiculo }}</td>
@@ -62,8 +61,9 @@
         <a [routerLink]="['/vehiculo', 0]">[Crear]</a>
       </td>
       <td style="text-align: right;">
-        <span *ngIf="VehiculosConsulta.NumeroPagina! > 1"> <a style="cursor: pointer;" (click)="RetrocederPagina()"> &lt;  &nbsp;</a> </span>
-        Página {{ VehiculosConsulta.NumeroPagina }} &nbsp;
+        <span *ngIf="consulta.NumeroPagina! > 1"> <a style="cursor: pointer;" (click)="PrimeraPagina()"> |&lt;  &nbsp;</a> </span>
+        <span *ngIf="consulta.NumeroPagina! > 1"> <a style="cursor: pointer;" (click)="RetrocederPagina()"> &lt;  &nbsp;</a> </span>
+        Página {{ consulta.NumeroPagina }} &nbsp;
         <span> <a style="cursor: pointer;" (click)="AvanzarPagina()">&gt; &nbsp;</a> </span>
       </td>      
     </tr>

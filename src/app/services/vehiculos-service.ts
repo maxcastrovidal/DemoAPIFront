@@ -13,55 +13,55 @@ export class VehiculosService {
     //constructor(private http: HttpClient) { }
     constructor() { }
 
-    async VehiculosGet(vehiculosConsulta: VehiculosConsulta): Promise<RespuestaProceso> {
+    async Get(consulta: VehiculosConsulta): Promise<RespuestaProceso> {
         let url = this.urlApi + '?';
         
-        if(vehiculosConsulta.Id!=null) {
-            url += '&Id=' + vehiculosConsulta.Id;
+        if(consulta.Id!=null) {
+            url += '&Id=' + consulta.Id;
         }
         
-        if(vehiculosConsulta.IdTipoVehiculo!=null) {
-            url += '&IdTipoVehiculo=' + vehiculosConsulta.IdTipoVehiculo;
+        if(consulta.IdTipoVehiculo!=null) {
+            url += '&IdTipoVehiculo=' + consulta.IdTipoVehiculo;
         }
         
-        if(vehiculosConsulta.IdModeloVersion!=null) {
-            url += '&IdModeloVersion=' + vehiculosConsulta.IdModeloVersion;
+        if(consulta.IdModeloVersion!=null) {
+            url += '&IdModeloVersion=' + consulta.IdModeloVersion;
         }
         
-        if(vehiculosConsulta.IdColorVehiculo!=null) {
-            url += '&IdColorVehiculo=' + vehiculosConsulta.IdColorVehiculo;
+        if(consulta.IdColorVehiculo!=null) {
+            url += '&IdColorVehiculo=' + consulta.IdColorVehiculo;
         }
         
-        if(vehiculosConsulta.IdSucursalConcesionario!=null) {
-            url += '&IdSucursalConcesionario=' + vehiculosConsulta.IdSucursalConcesionario;
+        if(consulta.IdSucursalConcesionario!=null) {
+            url += '&IdSucursalConcesionario=' + consulta.IdSucursalConcesionario;
         }
 
-        if(vehiculosConsulta.Patente!=null) {
-            url += '&Patente=' + vehiculosConsulta.Patente;
+        if(consulta.Patente!=null) {
+            url += '&Patente=' + consulta.Patente;
         }
 
-        if(vehiculosConsulta.FecCreacionDesde!=null) {
-            url += '&FecCreacionDesde=' + vehiculosConsulta.FecCreacionDesde;
+        if(consulta.FecCreacionDesde!=null) {
+            url += '&FecCreacionDesde=' + consulta.FecCreacionDesde;
         }
 
-        if(vehiculosConsulta.FecCreacionHasta!=null) {
-            url += '&FecCreacionHasta=' + vehiculosConsulta.FecCreacionHasta;
+        if(consulta.FecCreacionHasta!=null) {
+            url += '&FecCreacionHasta=' + consulta.FecCreacionHasta;
         }
 
-        if(vehiculosConsulta.Patente!=null) {
-            url += '&Patente=' + vehiculosConsulta.Patente;
+        if(consulta.Patente!=null) {
+            url += '&Patente=' + consulta.Patente;
         }
         
-        if(vehiculosConsulta.Ordenar!=null) {
-            url += '&Ordenar=' + vehiculosConsulta.Ordenar;
+        if(consulta.Ordenar!=null) {
+            url += '&Ordenar=' + consulta.Ordenar;
         }
 
-        if(vehiculosConsulta.RegistrosPagina!=null) {
-            url += '&RegistrosPagina=' + vehiculosConsulta.RegistrosPagina;
+        if(consulta.RegistrosPagina!=null) {
+            url += '&RegistrosPagina=' + consulta.RegistrosPagina;
         }
 
-        if(vehiculosConsulta.NumeroPagina!=null) {
-            url += '&NumeroPagina=' + vehiculosConsulta.NumeroPagina;
+        if(consulta.NumeroPagina!=null) {
+            url += '&NumeroPagina=' + consulta.NumeroPagina;
         }
 
         console.log('[VehiculosGet()]: Invocando ', url);
@@ -69,11 +69,10 @@ export class VehiculosService {
         return await data.json() ?? [];
       }
 
-    async VehiculosPost(vehiculo: Vehiculo): Promise<RespuestaProceso> {
+    async Post(vehiculo: Vehiculo): Promise<RespuestaProceso> {
         let url = this.urlApi;
 
-        console.log('[VehiculosPost()]: Invocando ', url)
-        console.log(vehiculo)
+        console.log('[VehiculosPost()]: Invocando ', url)        
 
         const data = await fetch(url, {
             method: 'POST',
@@ -86,20 +85,5 @@ export class VehiculosService {
         return await data.json() ?? [];        
 
     }
-
-    async ConsultarVehiculos(obj: any): Promise<RespuestaProceso> {
-        const url = this.urlApi + '/vehiculosinfo';
-        console.log('[ConsultarVehiculos()]: Invocando ', url);
-        console.log(JSON.stringify(obj));
-
-        const data = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(obj)
-        });
-        return await data.json() ?? [];
-    }    
        
 }

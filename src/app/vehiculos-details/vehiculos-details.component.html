@@ -1,1 +1,37 @@
-<p>vehiculos-details works!</p>
+<div *ngIf="vehiculo">
+    <h4>{{titulo}}</h4>
+    <span style="font-size:large; font-weight: bold; color: red;">{{msgError}}</span>
+    
+    <div class="row">
+        <div class="col-2">
+            Tipo
+            <input id="id-tipo-vehiculo" class="form-control" [(ngModel)]="vehiculo.IdTipoVehiculo" >
+        </div>
+        <div class="col-2">
+            Modelo-Versión
+            <input id="id-modelo-version" class="form-control" [(ngModel)]="vehiculo.IdModeloVersion" >
+        </div>
+        <div class="col-2">
+            Color
+            <input id="id-color" class="form-control" [(ngModel)]="vehiculo.IdColorVehiculo" >
+        </div>
+        <div class="col-2">
+            Concesionario
+            <input id="id-sucursal-concesionario" class="form-control" [(ngModel)]="vehiculo.IdSucursalConcesionario" >
+        </div>
+        <div class="col-2">
+            Patente
+            <input id="patente" [(ngModel)]="vehiculo.Patente" class="form-control" >
+        </div>
+        <div class="col-2">
+            Puertas
+            <input id="Puertas" [(ngModel)]="vehiculo.Puertas" class="form-control" type="number" >
+        </div>            
+    </div>
+</div>
+
+<br><br>
+<button type="button" (click)="Actualizar()">{{textoBtnActualizar}}</button>
+&nbsp;&nbsp;
+<button type="button" (click)="goBack()">Volver</button>
+<br>

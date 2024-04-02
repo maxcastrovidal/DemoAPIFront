@@ -5,6 +5,12 @@
         Id
         <input [(ngModel)]="consulta.Id" class="form-control" placeholder="123" type="number" >
     </div>
+    <div class="col-1">
+      Tipo
+      <select [(ngModel)]="consulta.IdTipoVehiculo" class="form-control">
+        <option *ngFor="let option of options" [ngValue]="option.Id">{{ option.Nombre }}</option>
+      </select>
+    </div>
     <div class="col-2">
         Patente
         <input [(ngModel)]="consulta.Patente" class="form-control" placeholder="ABCD12" >
@@ -24,7 +30,7 @@
     </div>
     
 
-    <div class="col-4" style="margin-top:22px">
+    <div class="col-3" style="margin-top:22px">
         <button class="btn btn-secondary" (click)="Consultar()">Buscar</button>
         &nbsp;&nbsp;&nbsp;
         <button class="btn btn-secondary" (click)="Limpiar()">Limpiar</button>

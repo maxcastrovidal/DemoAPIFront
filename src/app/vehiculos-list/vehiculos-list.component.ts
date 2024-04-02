@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { VehiculosConsulta } from '../interfaces/vehiculos';
 import { VehiculosService } from '../services/vehiculos-service';
+import { TiposVehiculoService } from '../services/tipos-vehiculo-servive';
 import { RespuestaProceso } from '../interfaces/respuesta-proceso'
+import { TiposVehiculoConsulta } from '../interfaces/tipos-vehiculo';
 
 
 @Component({
@@ -18,11 +20,33 @@ export class VehiculosListComponent implements OnInit {
 
   lista:any = [];
   msgError: string | null = null;
+
+  options: any[] | null = null; 
   
-  constructor(private VehiculosService: VehiculosService) {
+  constructor(private vehiculosService: VehiculosService,                    
+              private tiposVehiculoService: TiposVehiculoService) {
   }
   
   ngOnInit(): void {
+
+    let consulta: TiposVehiculoConsulta = {}
+    this.tiposVehiculoService.Get(this.consulta).then((respuestaProceso:RespuestaProceso)=> {
+      if(respuestaProceso.IdEstado! != 0 ) {
+        this.msgError = respuestaProceso.DsEstado;
+        return;
+      }
+
+      this.options = respuestaProceso.Datos;
+      this.options?.unshift({ Id: '0', Nombre: '(Todos)' });
+      //console.log(this.options);
+    });
+
+    // this.options = [
+    //   { key: '0', value: '(Todos)' },
+    //   { key: '1', value: 'Auto' },
+    //   { key: '2', value: 'Camioneta' },
+    //   { key: '3', value: 'Station Wagon' }
+    // ]
 
     let tmp = localStorage.getItem('VehiculosConsulta');
     if (tmp != null) {
@@ -81,7 +105,7 @@ export class VehiculosListComponent implements OnInit {
       this.consulta.Ordenar = null;
     }    
 
-    this.VehiculosService.Get(this.consulta).then((respuestaProceso:RespuestaProceso)=> {
+    this.vehiculosService.Get(this.consulta).then((respuestaProceso:RespuestaProceso)=> {
       if(respuestaProceso.IdEstado! != 0 ) {
         this.msgError = respuestaProceso.DsEstado;
         return;

@@ -1,32 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { VehiculosService } from '../services/vehiculos-service';
-import { Vehiculo, VehiculosConsulta } from '../interfaces/vehiculos';
-import { Utiles } from '../services/utiles';
+import { TiposVehiculoService } from '../services/tipos-vehiculo-servive';
+import { Vehiculo } from '../interfaces/vehiculos';
 
 @Component({
   selector: 'app-vehiculo',
   templateUrl: './vehiculos-details.component.html',
   styleUrls: ['./vehiculos-details.component.css']
 })
-export class VehiculosDetailsComponent {
-
+export class VehiculosDetailsComponent implements OnInit {
+  
   vehiculo: Vehiculo | undefined;
-  data:any = [];
+  tiposVehiculo: any[] | null = null; 
+
   titulo: string = "";
   textoBtnActualizar: string = "";
   msgError: string | null = null;
 
   constructor(private vehiculosService: VehiculosService,
+    private tiposVehiculoService: TiposVehiculoService,
     private route: ActivatedRoute,
-    private location: Location,
-    private utiles: Utiles) {
+    private location: Location) {
+
+  }
+
+  ngOnInit(): void {
 
     const id = parseInt(this.route.snapshot.params['id']);
-    this.cargarRegistro(id);
-    
-
+      
     if(id==0) {
        this.titulo = "Crear nuevo vehículo"
        this.textoBtnActualizar = "Crear"
@@ -41,15 +44,28 @@ export class VehiculosDetailsComponent {
       this.titulo = "Eliminar vehiculo [" + Math.abs(id).toString() + "]"  
       this.textoBtnActualizar = "Eliminiar"    
     }
+
+    this.CargarListas();
+    this.CargarRegistro(id);  
+  
   }
 
-  cargarRegistro(id: number) {
+  CargarListas() {
+    this.tiposVehiculoService.Get({}).then(t=> {
+      if(t.IdEstado! != 0 ) {
+        this.msgError = t.DsEstado;
+      } else {
+        this.tiposVehiculo = t.Datos;
+        this.tiposVehiculo?.unshift({ Id: '0', Nombre: '(Todos)' });
+      }      
+    });
+  }
+
+  CargarRegistro(id: number) {
 
     if (id!=0) {
-
-      const vc: VehiculosConsulta = {Id: Math.abs(id)};
             
-      this.vehiculosService.Get(vc).then(t => {
+      this.vehiculosService.Get({Id: Math.abs(id)}).then(t => {
 
         if(t.IdEstado != 0 ) {
           this.msgError = t.DsEstado;
@@ -68,7 +84,7 @@ export class VehiculosDetailsComponent {
     };
   }
 
-  Actualizar() {    
+  Actualizar() {
     this.vehiculosService.Post(this.vehiculo!).then(t=> {
       if(t.IdEstado != 0 ) {        
         this.msgError = t.DsEstado;

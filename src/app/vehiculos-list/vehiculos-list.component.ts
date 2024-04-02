@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { VehiculosConsulta } from '../interfaces/vehiculos';
 import { VehiculosService } from '../services/vehiculos-service';
 import { TiposVehiculoService } from '../services/tipos-vehiculo-servive';
-import { RespuestaProceso } from '../interfaces/respuesta-proceso'
-import { TiposVehiculoConsulta } from '../interfaces/tipos-vehiculo';
-
 
 @Component({
   selector: 'app-vehiculos-list',
@@ -19,34 +16,17 @@ export class VehiculosListComponent implements OnInit {
                                 }
 
   lista:any = [];
+  tiposVehiculo: any[] | null = null; 
+
   msgError: string | null = null;
 
-  options: any[] | null = null; 
-  
   constructor(private vehiculosService: VehiculosService,                    
               private tiposVehiculoService: TiposVehiculoService) {
   }
   
   ngOnInit(): void {
 
-    let consulta: TiposVehiculoConsulta = {}
-    this.tiposVehiculoService.Get(this.consulta).then((respuestaProceso:RespuestaProceso)=> {
-      if(respuestaProceso.IdEstado! != 0 ) {
-        this.msgError = respuestaProceso.DsEstado;
-        return;
-      }
-
-      this.options = respuestaProceso.Datos;
-      this.options?.unshift({ Id: '0', Nombre: '(Todos)' });
-      //console.log(this.options);
-    });
-
-    // this.options = [
-    //   { key: '0', value: '(Todos)' },
-    //   { key: '1', value: 'Auto' },
-    //   { key: '2', value: 'Camioneta' },
-    //   { key: '3', value: 'Station Wagon' }
-    // ]
+    this.CargarListas;
 
     let tmp = localStorage.getItem('VehiculosConsulta');
     if (tmp != null) {
@@ -55,6 +35,17 @@ export class VehiculosListComponent implements OnInit {
 
     this.Consultar();    
   }  
+
+  CargarListas() {
+    this.tiposVehiculoService.Get({}).then(t=> {
+      if(t.IdEstado! != 0 ) {
+        this.msgError = t.DsEstado;
+      } else {
+        this.tiposVehiculo = t.Datos;
+        this.tiposVehiculo?.unshift({ Id: '0', Nombre: '(Todos)' });  
+      }
+    });
+  }
 
   Consultar(Ordenar:string=''):void {
 
@@ -68,50 +59,13 @@ export class VehiculosListComponent implements OnInit {
       }
     }
 
-    //convertir a null, parámetros sin valor    
-    if(String(this.consulta.Id).length==0) {
-      this.consulta.Id = null;
-    }
-
-    if(String(this.consulta.IdTipoVehiculo).length==0) {
-      this.consulta.IdTipoVehiculo = null;
-    }    
-
-    if(String(this.consulta.IdModeloVersion).length==0) {
-      this.consulta.IdModeloVersion = null;
-    }
-    
-    if(String(this.consulta.IdColorVehiculo).length==0) {
-      this.consulta.IdColorVehiculo = null;
-    }
-    
-    if(String(this.consulta.IdSucursalConcesionario).length==0) {
-      this.consulta.IdSucursalConcesionario = null;
-    }
-
-    if(String(this.consulta.Patente).length==0) {
-      this.consulta.Patente = null;
-    }
-
-    if(String(this.consulta.FecCreacionDesde).length==0) {
-      this.consulta.FecCreacionDesde = null;
-    }
-
-    if(String(this.consulta.FecCreacionHasta).length==0) {
-      this.consulta.FecCreacionHasta = null;
-    }     
-    
-    if(String(this.consulta.Ordenar).length==0) {
-      this.consulta.Ordenar = null;
-    }    
-
-    this.vehiculosService.Get(this.consulta).then((respuestaProceso:RespuestaProceso)=> {
-      if(respuestaProceso.IdEstado! != 0 ) {
-        this.msgError = respuestaProceso.DsEstado;
+    this.vehiculosService.Get(this.consulta).then(t=> {
+      if(t.IdEstado! != 0 ) {
+        this.msgError = t.DsEstado;
         return;
       }
 
-      this.lista = respuestaProceso.Datos;
+      this.lista = t.Datos;
     });
 
     localStorage.setItem('VehiculosConsulta', JSON.stringify(this.consulta));
@@ -135,7 +89,7 @@ export class VehiculosListComponent implements OnInit {
   Limpiar():void {
     this.msgError = null;
     this.consulta.Id = null;
-    this.consulta.IdTipoVehiculo = null;
+    this.consulta.IdTipoVehiculo = 0;
     this.consulta.IdModeloVersion = null;
     this.consulta.IdColorVehiculo = null;
     this.consulta.IdSucursalConcesionario = null;

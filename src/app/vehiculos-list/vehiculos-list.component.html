@@ -7,8 +7,9 @@
     </div>
     <div class="col-1">
       Tipo
+      <!-- <input [(ngModel)]="consulta.IdTipoVehiculo" class="form-control"  > -->
       <select [(ngModel)]="consulta.IdTipoVehiculo" class="form-control">
-        <option *ngFor="let option of options" [ngValue]="option.Id">{{ option.Nombre }}</option>
+        <option *ngFor="let option of tiposVehiculo" [ngValue]="option.Id">{{ option.Nombre }}</option>
       </select>
     </div>
     <div class="col-2">

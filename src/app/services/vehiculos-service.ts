@@ -64,7 +64,7 @@ export class VehiculosService {
             url += '&NumeroPagina=' + consulta.NumeroPagina;
         }
 
-        console.log('[VehiculosGet()]: Invocando ', url);
+        console.log('[VehiculosServive.Get()]: Invocando ', url);
         const data = await fetch(url);
         return await data.json() ?? [];
       }
@@ -72,7 +72,7 @@ export class VehiculosService {
     async Post(vehiculo: Vehiculo): Promise<RespuestaProceso> {
         let url = this.urlApi;
 
-        console.log('[VehiculosPost()]: Invocando ', url)        
+        console.log('[VehiculosServive.Post()]: Invocando ', url)        
 
         const data = await fetch(url, {
             method: 'POST',

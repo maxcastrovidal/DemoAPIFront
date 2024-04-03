@@ -7,7 +7,7 @@
             Tipo
             <select [(ngModel)]="vehiculo.IdTipoVehiculo" class="form-control">
                 <option *ngFor="let option of tiposVehiculo" [ngValue]="option.Id">{{ option.Nombre }}</option>
-            </select>            
+            </select>
         </div>
         <div class="col-2">
             Modelo-Versión
@@ -15,11 +15,15 @@
         </div>
         <div class="col-2">
             Color
-            <input id="id-color" class="form-control" [(ngModel)]="vehiculo.IdColorVehiculo" >
+            <select [(ngModel)]="vehiculo.IdColorVehiculo" class="form-control">
+                <option *ngFor="let option of coloresVehiculo" [ngValue]="option.Id">{{ option.Nombre }}</option>
+            </select>
         </div>
         <div class="col-2">
-            Concesionario
-            <input id="id-sucursal-concesionario" class="form-control" [(ngModel)]="vehiculo.IdSucursalConcesionario" >
+            Concesionario            
+            <select [(ngModel)]="vehiculo.IdSucursalConcesionario" class="form-control">
+                <option *ngFor="let option of sucursalesConcesionario" [ngValue]="option.Id">{{ option.NombreCompleto }}</option>
+            </select>            
         </div>
         <div class="col-2">
             Patente

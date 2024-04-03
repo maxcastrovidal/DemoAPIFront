@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { VehiculosService } from '../services/vehiculos-service';
-import { TiposVehiculoService } from '../services/tipos-vehiculo-servive';
+import { ApiService } from '../services/api-service';
 import { Vehiculo } from '../interfaces/vehiculos';
 
 @Component({
@@ -13,16 +12,16 @@ import { Vehiculo } from '../interfaces/vehiculos';
 export class VehiculosDetailsComponent implements OnInit {
   
   vehiculo: Vehiculo | undefined;
-  tiposVehiculo: any[] | null = null; 
+  tiposVehiculo: any[] | null = null;
+  coloresVehiculo: any[] | null = null;
+  sucursalesConcesionario: any[] | null = null;
 
   titulo: string = "";
   textoBtnActualizar: string = "";
   msgError: string | null = null;
 
-  constructor(private vehiculosService: VehiculosService,
-    private tiposVehiculoService: TiposVehiculoService,
-    private route: ActivatedRoute,
-    private location: Location) {
+  constructor(private route: ActivatedRoute,
+              private location: Location) {
 
   }
 
@@ -51,21 +50,40 @@ export class VehiculosDetailsComponent implements OnInit {
   }
 
   CargarListas() {
-    this.tiposVehiculoService.Get({}).then(t=> {
+
+    new ApiService('tiposvehiculo').Get({}).then(t=> {
       if(t.IdEstado! != 0 ) {
         this.msgError = t.DsEstado;
       } else {
         this.tiposVehiculo = t.Datos;
-        this.tiposVehiculo?.unshift({ Id: '0', Nombre: '(Todos)' });
+        this.tiposVehiculo?.unshift({ Id: '0', Nombre: '(seleccionar)' });
       }      
     });
+
+    new ApiService('coloresvehiculo').Get({}).then(t=> {
+      if(t.IdEstado! != 0 ) {
+        this.msgError = t.DsEstado;
+      } else {
+        this.coloresVehiculo = t.Datos;
+        this.coloresVehiculo?.unshift({ Id: '0', Nombre: '(seleccionar)' });
+      }      
+    });
+
+    new ApiService('sucursalesconcesionario').Get({}).then(t=> {
+      if(t.IdEstado! != 0 ) {
+        this.msgError = t.DsEstado;
+      } else {
+        this.sucursalesConcesionario = t.Datos;
+        this.sucursalesConcesionario?.unshift({ Id: '0', NombreCompleto: '(seleccionar)' });
+      }      
+    });    
+
   }
 
   CargarRegistro(id: number) {
 
     if (id!=0) {
-            
-      this.vehiculosService.Get({Id: Math.abs(id)}).then(t => {
+      new ApiService('vehiculos').Get({Id: Math.abs(id)}).then(t=> {
 
         if(t.IdEstado != 0 ) {
           this.msgError = t.DsEstado;
@@ -85,7 +103,8 @@ export class VehiculosDetailsComponent implements OnInit {
   }
 
   Actualizar() {
-    this.vehiculosService.Post(this.vehiculo!).then(t=> {
+    const api = new ApiService('vehiculos');
+    api.Post(this.vehiculo!).then(t=> {
       if(t.IdEstado != 0 ) {        
         this.msgError = t.DsEstado;
       } else {

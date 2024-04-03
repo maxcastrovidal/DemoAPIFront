@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VehiculosConsulta } from '../interfaces/vehiculos';
-import { VehiculosService } from '../services/vehiculos-service';
-import { TiposVehiculoService } from '../services/tipos-vehiculo-servive';
+import { ApiService } from '../services/api-service';
 
 @Component({
   selector: 'app-vehiculos-list',
@@ -20,13 +19,12 @@ export class VehiculosListComponent implements OnInit {
 
   msgError: string | null = null;
 
-  constructor(private vehiculosService: VehiculosService,                    
-              private tiposVehiculoService: TiposVehiculoService) {
+  constructor() {
   }
   
   ngOnInit(): void {
 
-    this.CargarListas;
+    this.CargarListas();
 
     let tmp = localStorage.getItem('VehiculosConsulta');
     if (tmp != null) {
@@ -37,7 +35,9 @@ export class VehiculosListComponent implements OnInit {
   }  
 
   CargarListas() {
-    this.tiposVehiculoService.Get({}).then(t=> {
+
+    const api = new ApiService('tiposvehiculo');
+    api.Get({}).then(t=> {
       if(t.IdEstado! != 0 ) {
         this.msgError = t.DsEstado;
       } else {
@@ -59,7 +59,8 @@ export class VehiculosListComponent implements OnInit {
       }
     }
 
-    this.vehiculosService.Get(this.consulta).then(t=> {
+    const api = new ApiService('vehiculos');
+    api.Get(this.consulta).then(t=> {
       if(t.IdEstado! != 0 ) {
         this.msgError = t.DsEstado;
         return;

@@ -15,6 +15,7 @@ export class VehiculosDetailsComponent implements OnInit {
   tiposVehiculo: any[] | null = null;
   coloresVehiculo: any[] | null = null;
   sucursalesConcesionario: any[] | null = null;
+  modelosVersiones: any[] | null = null;
 
   titulo: string = "";
   textoBtnActualizar: string = "";
@@ -75,6 +76,15 @@ export class VehiculosDetailsComponent implements OnInit {
       } else {
         this.sucursalesConcesionario = t.Datos;
         this.sucursalesConcesionario?.unshift({ Id: '0', NombreCompleto: '(seleccionar)' });
+      }      
+    });
+
+    new ApiService('modelosversiones').Get({}).then(t=> {
+      if(t.IdEstado! != 0 ) {
+        this.msgError = t.DsEstado;
+      } else {
+        this.modelosVersiones = t.Datos;
+        this.modelosVersiones?.unshift({ Id: '0', Nombre: '(seleccionar)' });
       }      
     });    
 

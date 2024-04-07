@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { VehiculosListComponent } from './vehiculos-list/vehiculos-list.component';
 import { VehiculosDetailsComponent } from './vehiculos-details/vehiculos-details.component';
 import { FormsModule } from '@angular/forms';
+import { GeneralListComponent } from './general-list/general-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VehiculosListComponent,
-    VehiculosDetailsComponent
+    VehiculosDetailsComponent,
+    GeneralListComponent
   ],
   imports: [
     BrowserModule,

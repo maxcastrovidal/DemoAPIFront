@@ -11,22 +11,27 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container">
-    <table>
-      <tr>
-        <td><h1>API Demo</h1></td>
-        <td>&nbsp;&nbsp;&nbsp;</td>
-        <td>
-            <a href="/vehiculos">Vehiculos</a>&nbsp; 
-            <a href="/general?tipo=TiposVehiculo">Tipos</a>&nbsp;
-            <a href="/general?tipo=ColoresVehiculo">Colores</a>&nbsp;
-            <a href="/general?tipo=SucursalesConcesionario">Sucursales</a>&nbsp;
-            <a href="/general?tipo=ModelosVersiones">Modelos</a>&nbsp;
-        </td>
-      </tr>
-    </table>
+  <div class="container">   
+    <div class="row">
+      <div class="col-10">
+        <h1>API Demo</h1>
+      </div>
+      <div class="col-2" style="padding-top: 20px;">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Menú
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/vehiculos">Vehiculos</a></li>
+            <li><a class="dropdown-item" href="/list?tipo=TiposVehiculo">Tipos Vehículo</a></li>
+            <li><a class="dropdown-item" href="/list?tipo=ColoresVehiculo">Colores</a></li>
+            <li><a class="dropdown-item" href="/list?tipo=SucursalesConcesionario">Sucursales</a></li>
+            <li><a class="dropdown-item" href="/list?tipo=ModelosVersiones">Modelos</a></li>
+          </ul>
+        </div>          
+      </div>      
+    </div>        
     
-
     <app-root></app-root>
   </div>
 </body>

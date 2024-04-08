@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { VehiculosListComponent } from './vehiculos-list/vehiculos-list.component';
 import { VehiculosDetailsComponent } from './vehiculos-details/vehiculos-details.component';
 import { GeneralListComponent } from './general-list/general-list.component';
+import { GeneralDetailsComponent } from './general-details/general-details.component';
+
 
 const routes: Routes = [
   {
@@ -21,10 +23,15 @@ const routes: Routes = [
     title: 'Detalle Vehiculo'
   },  
   {
-    path: 'general',
+    path: 'list',
     component: GeneralListComponent,
     title: 'Listado'
   },
+  {
+    path: 'details',
+    component: GeneralDetailsComponent,
+    title: 'Detalle'
+  },  
   ];
 
 @NgModule({

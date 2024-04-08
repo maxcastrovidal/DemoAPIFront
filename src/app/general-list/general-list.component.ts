@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api-service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-general-list',
@@ -14,7 +14,8 @@ export class GeneralListComponent implements OnInit {
   tipo: string;
   consulta: any = {}
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,              
+  ) {
     this.tipo = this.route.snapshot.queryParams['tipo'];
   }
 
@@ -32,10 +33,7 @@ export class GeneralListComponent implements OnInit {
       } else {
         this.consulta.Ordenar = Ordenar;
       }
-    }
-
-    
-    console.log(this.tipo.toLowerCase())
+    }  
 
     const api = new ApiService(this.tipo.toLowerCase());
     api.Get(this.consulta).then(t=> {
@@ -50,5 +48,9 @@ export class GeneralListComponent implements OnInit {
     localStorage.setItem('GeneralConsulta', JSON.stringify(this.consulta));
   }
 
+  Details(id: number) {
+    let url: string = "details?tipo=" + this.tipo + "&id=" + Number
+    window.location.href = url;
+  }
 }
 

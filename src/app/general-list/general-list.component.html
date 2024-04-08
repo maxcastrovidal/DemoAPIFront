@@ -1,7 +1,7 @@
 <h4>Listado  {{tipo}}</h4>
 
 <span style="font-size:large; font-weight: bold; color: red;">{{msgError}}</span>
-<br><br>
+
 <table class="table">
     <thead>
       <tr>
@@ -12,16 +12,16 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of lista">
-        <td><a [routerLink]="['/{{tipo}}', item.Id]">{{item.Id}}</a></td>
+        <td><a style="cursor: pointer;" (click)="Details(item.Id)">[Crear]</a></td>
         <td>{{ item.Nombre }}</td>
-        <td><a [routerLink]="['/{{tipo}}', (item.Id * -1)]">Eliminar</a></td>
+        <td><a style="cursor: pointer;" (click)="Details(item.Id * -1)">[Eliminar]</a></td>
       </tr>
     </tbody>
   </table>
   <table style="width: 100%;">
     <tr>
-      <td>
-        <a [routerLink]="['/{{tipo}}', 0]">[Crear]</a>
+      <td>        
+        <a style="cursor: pointer;" (click)="Details(0)">[Crear]</a>
       </td>
     </tr>
   </table>

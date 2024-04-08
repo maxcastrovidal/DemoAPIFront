@@ -7,13 +7,15 @@ import { VehiculosListComponent } from './vehiculos-list/vehiculos-list.componen
 import { VehiculosDetailsComponent } from './vehiculos-details/vehiculos-details.component';
 import { FormsModule } from '@angular/forms';
 import { GeneralListComponent } from './general-list/general-list.component';
+import { GeneralDetailsComponent } from './general-details/general-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VehiculosListComponent,
     VehiculosDetailsComponent,
-    GeneralListComponent
+    GeneralListComponent,
+    GeneralDetailsComponent
   ],
   imports: [
     BrowserModule,

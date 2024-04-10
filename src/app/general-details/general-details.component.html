@@ -1,1 +1,17 @@
-<p>general-details works!</p>
+<div *ngIf="generico">
+    <h4>{{titulo}}</h4>
+    <span style="font-size:large; font-weight: bold; color: red;">{{msgError}}</span>
+
+    <div class="row">        
+        <div class="col-2">
+            Nombre
+            <input id="nombre" [(ngModel)]="generico.Nombre" class="form-control" >
+        </div>     
+    </div>
+</div>
+
+<br><br>
+<button type="button" (click)="Actualizar()">{{textoBtnActualizar}}</button>
+&nbsp;&nbsp;
+<button type="button" (click)="goBack()">Volver</button>
+<br>

@@ -26,7 +26,7 @@ export class VehiculosDetailsComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     const id = parseInt(this.route.snapshot.params['id']);
       

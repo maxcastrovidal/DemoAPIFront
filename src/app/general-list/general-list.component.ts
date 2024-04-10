@@ -48,9 +48,5 @@ export class GeneralListComponent implements OnInit {
     localStorage.setItem('GeneralConsulta', JSON.stringify(this.consulta));
   }
 
-  Details(id: number) {
-    let url: string = "details?tipo=" + this.tipo + "&id=" + Number
-    window.location.href = url;
-  }
 }
 

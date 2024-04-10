@@ -28,7 +28,7 @@ const routes: Routes = [
     title: 'Listado'
   },
   {
-    path: 'details',
+    path: 'details/:tipo/:id',
     component: GeneralDetailsComponent,
     title: 'Detalle'
   },  
